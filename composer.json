@@ -1,5 +1,5 @@
 {
-  "name": "vavo/nette-encore",
+  "name": "dava/nette-2-3-encore",
   "type": "library",
   "description": "Encore integration to Nette project",
   "keywords": ["nette", "encore", "webpack"],
@@ -8,8 +8,8 @@
   "license": "MIT",
   "authors": [
     {
-      "name": "Václav Vodička",
-      "email": "vaclav.vodicka92@gmail.com"
+      "name": "David Václavek",
+      "email": "vaclavek.dvd@gmail.com"
     }
   ],
   "autoload": {
@@ -17,10 +17,10 @@
   },
   "require": {
     "ext-curl": "*",
-    "php": ">= 7.4",
-    "latte/latte": "^2.6",
-    "nette/application": "^3.0",
-    "nette/di": "^3.0",
+    "php": ">= 7.1",
+    "latte/latte": "^2.3",
+    "nette/application": "^2.3",
+    "nette/di": "^2.3",
     "ext-json": "*"
   }
 }
