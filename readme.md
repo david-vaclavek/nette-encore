@@ -2,31 +2,25 @@
 Macros and components for integration of Encore into Nette project. 
 
 ## Install
-```bash
-composer require vavo/nette-encore
-yarn add @symfony/webpack-encore --dev
+```
+Download the code from a repository and place it in /app folder. 
 ```
 ## Usage
-1 . Register extension.
+1 . Register extension as a service and define the properties.
  
 ```config
-extensions:
-	encoreLoader: vavo\EncoreLoader\DI\EncoreLoaderExtension
+services:
+...
+
+#Encore
+	- App\Components\Encore\IEncoreLoader
+	- App\Components\Encore\EncoreService(%wwwDir%/assets/)
 ```
 
-2 . Define encore properties in config.
-
-```config
-encoreLoader:
-    outDir: "%wwwDir%/build/"
-    defaultEntry: index
-```
-3 . Add trait into Presenter.
+2 . Add inject service into BasePresenter.
 
 ```php
 <?php
-
-declare(strict_types=1);
 
 namespace App\Presenters;
 
@@ -35,24 +29,29 @@ use Nette;
 
 class BasePresenter extends Nette\Application\UI\Presenter
 {
-	use EncoreLoaderTrait;
-...
+	/** @var IEncoreLoader @inject */
+    public $encoreLoaderComponent;
+    ...
+    public function createComponentEncore()
+    {
+        return $this->encoreLoaderComponent->create();
+    }
 ```
 
-4 . Add control into @layout.latte. You can specify what file should be included.
+3 . Add control into @layout.latte. You can specify what file should be included.
 ```
-{control encore-css}
-{control encore-css, [filename]}
-...
-{control encore-js, index}
+    {control encore-css}
+    {control encore-css, [filename]}
+    ...
+    {control encore-js, index}
 ```
 
-5 . Use latte macro anywhere you need.
+4 . Use asset latte macro still NEEDS to be implemented.
 ```
 <img src="{asset "build/images/logo.svg"}" />
 ```
 
-6 . Use relative path to your image in css
+5 . Use relative path to your image in css
  ```
  background-image: url('../images/background.jpg')
  ```
